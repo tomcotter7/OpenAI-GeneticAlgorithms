@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage{hyperref}
+
+\title{Project Idea (Designing Intelligent Agents)}
+\author{Thomas Cotter (20160230)}
+
+\begin{document}
+
+	\maketitle
+	
+	The initial idea for this project will be using the robotics environments from OpenAIGym - \url{https://gym.openai.com/envs/\#robotics}, specifically the HandManipulate(*) environments. The question I'd like to ask is: \textbf{If a genetic algorithm is trained on HandManipulateBlock, can we transfer the learning to a different HandManipulate(*) environment and still have a useful agent?} I think this would be a useful task as if training a robotic hand to do 1 task improves it's usefulness in other tasks we could train generic robot hands that could do lot's of useful tasks in real-life very quickly and easily.
+
+	\medbreak
+
+	I'd implement some code to create a genetic algorithm, run that code on HandManipulateBlock to get a measure of average performance - hopefully quite high and then run the same code on the other two environments to see how the system fairs.
+
+\end{document}
