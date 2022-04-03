@@ -1,27 +1,16 @@
 import gym
+from genetics.pop import Population
 
+POP_SIZE = 1
+MUTATION_RATE = 0.4
+CROSSOVER_RATE = 0.4
+GENERATIONS = 50
+PREV_POPS = 5
 
-def run_env(env):
-    for i_episode in range(20):
-        observation = env.reset()
-        for t in range(100):
-            env.render()
-            print(observation)
-            action = env.action_space.sample()
-            observation, reward, done, info = env.step(action)
-            if done:
-                print("Episode finished after {} timestamps".format(t+1))
-                break
-    env.close()
+env_hmb = gym.make('HandManipulateBlock-v0')
+env_hme = gym.make('HandManipulateEgg-v0')
+env_hmp = gym.make('HandManipulatePen-v0')
 
+p = Population(POP_SIZE, MUTATION_RATE, CROSSOVER_RATE, GENERATIONS, env_hmb, PREV_POPS)
 
-def create_populations(env, sizeOfPop):
-    pop = []
-    for i in range(sizeOfPop):
-        pop.append(env.action_space.sample())
-    return pop
-
-
-env = gym.make('HandManipulateBlock-v0')
-ps = create_populations(env, 20)
-# run_env(env)
+print(p.run())
