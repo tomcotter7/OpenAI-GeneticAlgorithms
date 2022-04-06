@@ -3,12 +3,13 @@ import random
 
 
 class Individual():
-    def __init__(self, env, actions, mr):
+    def __init__(self, env, num_actions, mr):
         self.env = env
-        self.numActions = actions
+        self.numActions = num_actions
         self.actions = []
         self.generate_actions()
         self.mr = mr
+        self.fitness = 0
 
     def generate_actions(self):
         for a in range(self.numActions):
@@ -24,9 +25,10 @@ class Individual():
             if done:
                 break
         if reward == 0:
-            return 0
+            self.fitness = 0
         else:
-            return self.calculate_difference(goal, obs['achieved_goal'])
+            self.fitness = self.calculate_difference(goal, obs['achieved_goal'])
+        return self.fitness
 
     def calculate_difference(self, goal, ach_goal):
         total_difference = 0
