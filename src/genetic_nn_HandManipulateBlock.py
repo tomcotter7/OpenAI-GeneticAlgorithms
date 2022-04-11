@@ -12,6 +12,7 @@ n_input = 61
 n_output = 1
 
 
+# function to generate the nn with 3 dense layers.
 def neural_network():
     model = tf.keras.Sequential()
     model.add(tf.keras.layers.Dense(64, input_shape=(61,), activation="relu"))
@@ -20,19 +21,20 @@ def neural_network():
     return model
 
 
+# function to reshape the obs so that they can be passed into the network
 def reshape_obs(obs, num=61):
     return np.reshape(obs, [1, num])
 
 
+# function to create the initial generation
 def create_initial_gen(n=10):
-
     gen = []
     for i in range(n):
         gen.append(neural_network())
-
     return gen
 
 
+# function to run a generation across an environment
 def run_gen_env(env, gen):
     results = []
     for nn in gen:
@@ -44,6 +46,7 @@ def run_gen_env(env, gen):
     return gen, results
 
 
+# function to run an agent in an environment
 def run_env(env, nn):
     obs = env.reset()['observation']
     reward = -1
