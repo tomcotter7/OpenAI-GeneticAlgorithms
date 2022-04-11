@@ -1,6 +1,6 @@
 import gym
 import numpy as np
-import tensorflow as tf
+from agent import Agent
 
 env = gym.make('HandManipulateBlockDense-v0').env
 # env = gym.make('CartPole-v1')
@@ -12,15 +12,6 @@ n_input = 61
 n_output = 1
 
 
-# function to generate the nn with 3 dense layers.
-def neural_network():
-    model = tf.keras.Sequential()
-    model.add(tf.keras.layers.Dense(64, input_shape=(61,), activation="relu"))
-    model.add(tf.keras.layers.Dense(32, activation="relu"))
-    model.add(tf.keras.layers.Dense(20, activation="sigmoid"))
-    return model
-
-
 # function to reshape the obs so that they can be passed into the network
 def reshape_obs(obs, num=61):
     return np.reshape(obs, [1, num])
@@ -30,17 +21,17 @@ def reshape_obs(obs, num=61):
 def create_initial_gen(n=10):
     gen = []
     for i in range(n):
-        gen.append(neural_network())
+        gen.append(Agent())
     return gen
 
 
 # function to run a generation across an environment
 def run_gen_env(env, gen):
     results = []
-    for nn in gen:
+    for agent in gen:
         nn_specific_results = []
         for i in range(5):
-            reward = run_env(env, nn)
+            reward = run_env(env, agent.nn)
             nn_specific_results.append(reward)
         results.apppend(nn_specific_results)
     return gen, results
