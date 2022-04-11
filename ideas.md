@@ -19,6 +19,10 @@ Ok, main idea:
 - evolve the populations over time
 
 
+- new idea:
+
+  -
+
 Actual Question ideas:
   - If we train a genetic algorithm for the hand to do one task, is it possible to transfer the actions learned from the genetic algorithm for the hand to do another task, and still be able to very close to it's desired goal, i.e. does it complete it's task?
 
