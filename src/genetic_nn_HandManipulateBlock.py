@@ -62,6 +62,7 @@ def run_env(env, nn):
 
 def get_best_nn(gen, gen_reward):
     # rank the neural networks based on the best reward?
+    pass
 
 
 initial_gen = create_initial_gen()
