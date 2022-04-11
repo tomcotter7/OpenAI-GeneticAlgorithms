@@ -1,6 +1,7 @@
 import gym
 import numpy as np
 from agent import Agent
+import random
 
 env = gym.make('HandManipulateBlockDense-v0').env
 # env = gym.make('CartPole-v1')
@@ -56,9 +57,19 @@ def run_env(env, nn):
 
 def get_best_nn(gen, gen_reward):
     # rank the neural networks based on the best reward?
-    pass
+    # lets do a tournament selection basd on the average reward
+
+    # median_values = np.median(gen_reward, axis=1)
+    mean_values = sorted(np.mean(gen_reward, axis=1))
+    new_gen = []
+    for i in range(10):
+        tournament = random.sample(mean_values, 5)
+        winner = min(tournament)
+        new_gen.append(gen[np.where(mean_values == winner)])
+
+    return new_gen
 
 
 initial_gen = create_initial_gen()
 gen, gen_reward = run_gen_env(env, initial_gen)
-print(gen, gen_reward)
+get_best_nn(gen, gen_reward)

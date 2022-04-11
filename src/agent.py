@@ -13,3 +13,6 @@ class Agent:
         model.add(tf.keras.layers.Dense(32, activation="relu"))
         model.add(tf.keras.layers.Dense(20, activation="sigmoid"))
         return model
+
+    def update_weights(self, new_weights):
+        self.nn.set_weights(new_weights)
