@@ -33,7 +33,7 @@ def run_gen_env(env, gen):
         for i in range(5):
             reward = run_env(env, agent.nn)
             nn_specific_results.append(reward)
-        results.apppend(nn_specific_results)
+        results.append(nn_specific_results)
     return gen, results
 
 
