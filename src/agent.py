@@ -16,3 +16,6 @@ class Agent:
 
     def update_weights(self, new_weights):
         self.nn.set_weights(new_weights)
+
+    def get_weights(self):
+        return [layer.get_weights()[0] for layer in self.nn.layers]
