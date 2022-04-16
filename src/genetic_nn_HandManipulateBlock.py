@@ -6,11 +6,8 @@ import random
 env = gym.make('HandManipulateBlockDense-v0').env
 # env = gym.make('CartPole-v1')
 
-n_hidden1 = 10
-n_hidden2 = 20
-n_input = 61
-
-n_output = 1
+GENERATIONS = 10
+POP_SIZE = 2
 
 
 # function to reshape the obs so that they can be passed into the network
@@ -55,18 +52,31 @@ def run_env(env, nn):
     return reward
 
 
+# how do we do this?
+def crossover(agent1, agent2, cr=0.3):
+    pass
+
+
 def mutate(agent, mr=0.3, ):
     # mutate the agent by multiplying a random set of weights by a
     # random number between 0.5 and 1.5.
 
     current_weights = agent.get_weights()
-    new_weight = []
-    for w in current_weights:
-        chance = random.uniform(0, 1)
-        if chance < mr:
-            random_multiplication = random.uniform(0.5, 1.5)
-            w = np.multiply(w, random_multiplication)
-        new_weight.append(w)
+
+    new_weights = []
+    for layer_weights in current_weights:
+        new_layer_weights = []
+        for w in layer_weights:
+            chance = random.uniform(0, 1)
+            if chance < mr:
+                random_multiplication = random.uniform(0.5, 1.5)
+                w = np.multiply(w, random_multiplication)
+            new_layer_weights.append(w)
+        new_layer_weights = np.asarray(new_layer_weights, dtype=object)
+        new_weights.append(new_layer_weights)
+
+    agent.update_weights(new_weights)
+    return agent
 
 
 def get_best_nn(gen, gen_reward):
@@ -76,20 +86,26 @@ def get_best_nn(gen, gen_reward):
     # median_values = np.median(gen_reward, axis=1)
     mean_values = sorted(np.mean(gen_reward, axis=1))
     new_gen = []
-    for i in range(1):
+    for i in range(int(len(gen) / 2)):
         tournament_1 = random.sample(mean_values, int(len(mean_values) / 2))
         tournament_2 = random.sample(mean_values, int(len(mean_values) / 2))
         winner_1 = max(tournament_1)
         winner_2 = max(tournament_2)
+        print("Current Winner:", winner_1)
         p1 = gen[mean_values.index(winner_1)]
         p2 = gen[mean_values.index(winner_2)]
-        if p1 == p2:
-            new_gen.append(p1)
+        print(p1)
+
+        p1 = mutate(p1)
         p2 = mutate(p2)
+        new_gen.append(p1)
+        new_gen.append(p2)
 
     return new_gen
 
 
-initial_gen = create_initial_gen(n=2)
+initial_gen = create_initial_gen(n=POP_SIZE)
 gen, gen_reward = run_gen_env(env, initial_gen)
-new_gen = get_best_nn(gen, gen_reward)
+for g in range(GENERATIONS):
+    gen = get_best_nn(gen, gen_reward)
+    gen, gen_reward = run_gen_env(env, gen)
