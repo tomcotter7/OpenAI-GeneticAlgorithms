@@ -1,1 +1,12 @@
 **/__pycache__/
+report/_minted-thesis
+**/*.aux
+**/*.fdb_latexmk
+**/*.log
+**/*.bbl
+**/*.dvi
+**/*.blg
+**/*.fls
+**/*.lof
+**/*.lot
+**/*.toc

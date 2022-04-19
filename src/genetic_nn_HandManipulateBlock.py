@@ -57,24 +57,18 @@ def crossover(agent1, agent2, cr=0.3):
     pass
 
 
-def mutate(agent, mr=0.3, ):
+def mutate_layer_weight(lw, mr):
+    chance = random.uniform(0, 1)
+    if chance < mr:
+        lw[0] = np.vectorize(lambda x: np.multiply(x, random.uniform(0.5, 1.5)))(lw[0])
+    return lw
+
+
+def mutate(agent, mr=0.5):
     # mutate the agent by multiplying a random set of weights by a
     # random number between 0.5 and 1.5.
-
     current_weights = agent.get_weights()
-
-    new_weights = []
-    for layer_weights in current_weights:
-        new_layer_weights = []
-        for w in layer_weights:
-            chance = random.uniform(0, 1)
-            if chance < mr:
-                random_multiplication = random.uniform(0.5, 1.5)
-                w = np.multiply(w, random_multiplication)
-            new_layer_weights.append(w)
-        new_layer_weights = np.asarray(new_layer_weights, dtype=object)
-        new_weights.append(new_layer_weights)
-
+    new_weights = [mutate_layer_weight(lw, mr) for lw in current_weights]
     agent.update_weights(new_weights)
     return agent
 
@@ -89,13 +83,8 @@ def get_best_nn(gen, gen_reward):
     for i in range(int(len(gen) / 2)):
         tournament_1 = random.sample(mean_values, int(len(mean_values) / 2))
         tournament_2 = random.sample(mean_values, int(len(mean_values) / 2))
-        winner_1 = max(tournament_1)
-        winner_2 = max(tournament_2)
-        print("Current Winner:", winner_1)
-        p1 = gen[mean_values.index(winner_1)]
-        p2 = gen[mean_values.index(winner_2)]
-        print(p1)
-
+        p1 = gen[mean_values.index(max(tournament_1))]
+        p2 = gen[mean_values.index(max(tournament_2))]
         p1 = mutate(p1)
         p2 = mutate(p2)
         new_gen.append(p1)
