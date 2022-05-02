@@ -1,9 +1,20 @@
 \chapter{Design}
 
-OpenAI Gym is a toolkit for reinforcement learning research. It includes a growing collection of benchmark problems that expose a common interface (2016, \cite{gym}). OpenAI Gym focuses on the episodic setting of reinforcement learning, where the agent's experience is broken down into a series of episodes. In each episode the agent's initial state is randomly sampled from a distribution, and the interaction proceeds until the environment reaches a terminal state. The robotics environments that are used in this project are defined using MuJoCo, a python library for advanced physisc simulation \cite{mujoco}. OpenAI Gym does not include a built-in agent, so this will have to be built from scratch.
+OpenAI Gym is a toolkit for reinforcement learning research. It includes a growing collection of benchmark problems that expose a common interface (2016, \cite{gym}). OpenAI Gym focuses on the episodic setting of reinforcement learning, where the agent's experience is broken down into a series of episodes. In each episode the agent's initial state is randomly sampled from a distribution, and the interaction proceeds until the environment reaches a terminal state. The robotics environments that are used in this project are defined using MuJoCo, a python library for advanced physics simulation \cite{mujoco}. OpenAI Gym does not include a built-in agent, so this will have to be built from scratch.
 
+\paragraph{}
 
+The agents used to solve this task will be deep neural networks. These will be built using TensorFlow, and end-to-end open source platform for machine learning. The agents will contain initially contain 3 Dense layers, this could be altered to a larger number of layers and parameters, however due to the time constraints and currently available compute power this model architecture will be used. The input to the agents will be the current state of the environment and the output will be an action to take. In doing this, the agents should be able to take actions that take them towards the goal state. The fitness of the agent will be calculated by taking up to 75 steps on the environment and measuring the received reward. The reward is 0.0 if the agent successfully completed the task, otherwise the reward is calculated by OpenAI Gym, but it is the distance from the current state and the goal state.
 
-Main section of this project would be Agent architecture (however this is relatively basic).
+\paragraph{}
 
-Also, I would need to talk about the different design choices for the evolution of the agents - selection, mutation and crossover algorithms.
+The selection, crossover and mutation processes will also have to be designed. For selection, tournament selection will be use, as well as elitism. Tournament selection is when a sample of the entire population is chosen to perform a tournament, i.e the fitness of the individual, and the best individual is returned. Elitism is where the top N individuals in terms of fitness will be automatically passed to the next generation. Different values of N will be experimented with to determine the most optimal value. For crossover, uniform crossover will be used. This can be performed in two ways:
+\begin{itemize}
+  \item Choose each individual weight from either parent for the child.
+  \item Choose each entire layer's weight from either parent for the child.
+\end{itemize}
+Due to the time constraints in this project, crossover will be performed with the entire layers weight but with more time more complex ways of crossover would be researched. Mutation is used to maintain and introduce diversity into the population. The idea would be to select a random weight, and perform a mutation operation to this weight. The weight could be replaced a random value (within certain constraints), the weight could be changed by some percentage or the sign of the weight could be changed. These 3 will be experimented with in order to find the most optimal process for mutated the weights.
+
+\paragraph{}
+
+The population should converge on weights that solve the HandManipulateBlock tasks consistently. Then, these networks can be taken and tested on the other 3 tasks. In order to test the transfer learning, we would need to see how many steps it takes the networks to solve each task or if they reach a certain number of steps without solving the task at all. What also can be tested is if we continue evolving these pre-trained neural networks for a N generations (where N is a very small number), do they reach the goal in a fewer number of steps than untrained neural networks trained for N generations.

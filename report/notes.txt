@@ -1,0 +1,14 @@
+for the new update to the project, using this paper - https://www.nature.com/articles/nature14236. This is most commonly used way to use deep learning in reinforcement learning.
+Convolution, Dense and a dropout layer will be used.
+
+We can use a stable-baselines3 function called WarpFrame, what this means is that all of the image data passed will be in the form (84,84,1)
+
+What this means is that we can train our deep neural net on space invaders. Once we can figure out a way to get a maximum score - using mutation, crossover etc... all the different techniques.
+
+We can test our models capabilities to transfer its learning to two space invader "clones" - DemonAttack and Carnival, the premise and controls of these games are very similar to SpaceInvaders.
+
+Therefore, in theory the model should perform significantly better than random actions on the environment, and we can test the number of generations it takes to get the model perfect.
+
+
+Neuroevolution, or neuro-evolution, is a form of artificial intelligence that uses evolutionary algorithms to generate artificial neural networks (ANN), parameters, topology and rules.[1] It is most commonly applied in artificial life, general game playing[2] and evolutionary robotics. The main benefit is that neuroevolution can be applied more widely than supervised learning algorithms, which require a syllabus of correct input-output pairs. In contrast, neuroevolution requires only a measure of a network’s performance at a task.
+

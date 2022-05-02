@@ -1,1 +1,18 @@
 \chapter{Implementation}
+
+Just some bullet points to write up later
+
+I initially tried to swap an entire layers weights, that did not work.  Probably because of the small number of layers I was using. Therefore, I changed to swap individual weights within the layer. See if this improved anything
+
+
+Initially mutation technique was to change the weights by a certain percentage - but perhaps this is not exploratory enough. The other option would be to set the weight to a completely random number.
+
+Need to test with multiple hyper parameters and detail the results
+
+I initially started with quite a high mutation rate for all mutations (0.4 for weights) and (0.3 for bias). I then changed the mutation rates to be lower as it seems the model was mainly just going in random directions.
+
+ - Mutation rate for elitism selected Agents - 0.05 (both weights and biases)
+ - Mutation rate for normal agents weights - 0.2, biases - 0.1
+ - Crossover rate - 0.4 weights, 0.1 biases
+
+Results were
