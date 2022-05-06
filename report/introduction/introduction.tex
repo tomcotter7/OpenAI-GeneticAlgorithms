@@ -1,38 +1,14 @@
 \chapter{Introduction}
 
-Neuroevolution is a practice where Deep Neural Networks (DNNs) are optimized by evolutionary algorithms, rather by the usual gradient-based learning algorithms. A paper by Such et al (2017, \cite{such}), states that Genetic Algorithms (GAs) are a competitive alternative for training deep neural networks for reinforcement learning. Neuroevolution can be used to train the weights of a DNN. This can be tested on OpenAIs robotics environment called ShadowHands \cite{openai}. These are a set of simulated robotics environments to test reinforcement learning algorithms. There are 4 environments available for use, these can be seen in Table \ref{tab:shadowhand}.
-
-
-\begin{table}[ht]
-  \centering
-  \begin{tabular}{| m{8cm} | m{8cm} |}
-    \hline
-    \rowcolor{black!30} \Centering \textbf{Enviroment Name} & \Centering \textbf{Description} \\
-    \hline
-    HandManipulateBlock & The ShadowHand must try to rotate a block into the desired position. \\
-    \hline
-    HandManipulateEgg & The ShadowHand must try to rotate an egg into the desired position. \\
-    \hline
-    HandManipulatePen & The ShadowHand must try to orient a pen into the desired position. \\
-    \hline
-    HandReach & The ShadowHand must try to reach a desired position with its fingers. \\
-    \hline
-  \end{tabular}
-  \caption{The OpenAI ShadowHand Environments}
-  \label{tab:shadowhand}
-
-\end{table}
-
-
-Furthermore, these enviroments are very similar in terms of the goal that each ShadowHand has, therefore a question arises that if we train a DNN on one of these environments, how will that DNN perform on a different ShadowHand environment? These virtual ShadowHands are based on real-life ShadowHand robots. If the hands can transfer learning across multiple different tasks, this will greatly reduce the training time required for the hands to perform different tasks, which in turn will make them more useful robots.
+Neuroevolution is a practice where Deep Neural Networks (DNNs) are optimized by evolutionary algorithms, rather by the usual gradient-based learning algorithms. A paper by Such et al (2017, \cite{such}), states that Genetic Algorithms (GAs) are a competitive alternative for training deep neural networks for reinforcement learning. Neuroevolution can be used to train the weights of a DNN. We can test how well neuroevolution performs in reinforcement learning by using OpenAI Atari environments; in particular, Space Invaders \footnote{https://gym.openai.com/envs/SpaceInvaders-v0/}. Furthermore, due to Space Invaders immense popularity there have been other games on the Atari which one could refer to as Space Invader ``clones'', which means the basic premise of the game is to move left and right, shooting the enemies above you to gain points. Two example of this that have identical controls would be  Demon Attack \footnote{https://gym.openai.com/envs/DemonAttack-v0/} and Carnival \footnote{https://gym.openai.com/envs/Carnival-v0/}. Therefore, the question that arises is, would it be possible to train a DNN on Space Invaders and use that learning to produce a ``good'' performance on a Space Invader clone? Neuroevolution can help to solve this question as we can train the model without the need for a large labelled dataset, and we can use the final model on different enviroments.
 
 \section{Aim of the Project}
 
 The aim of this project is to answer the question: \textbf{Can we transfer the learning of Deep Neural Networks trained with neuroevolution techniques on one environment to another similar environment?}. This aim can broken down into some goals which are detailed here:
 \begin{itemize}
-  \item Train a DNN using a genetic algorithm to consistently solve the HandManipulateBlock task.
-  \item Use this DNN on each of the 3 other ShadowHand enviroments.
-  \item Measure how well the DNN performed using different loss metrics.
+  \item Train a DNN using a genetic algorithm to consistenly get high scores on Space Invaders.
+  \item Use this DNN to measure the score of running it on a Space Invader clone.
+  \item Measure how well the DNN performed by comparing it to other ways of selecting an action from a state.
 \end{itemize}
 
 For this project, I will be using Python to use the OpenAI enviroments, and TensorFlow to implement the DNN.

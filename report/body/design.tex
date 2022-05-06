@@ -1,20 +1,48 @@
 \chapter{Design}
 
-OpenAI Gym is a toolkit for reinforcement learning research. It includes a growing collection of benchmark problems that expose a common interface (2016, \cite{gym}). OpenAI Gym focuses on the episodic setting of reinforcement learning, where the agent's experience is broken down into a series of episodes. In each episode the agent's initial state is randomly sampled from a distribution, and the interaction proceeds until the environment reaches a terminal state. The robotics environments that are used in this project are defined using MuJoCo, a python library for advanced physics simulation \cite{mujoco}. OpenAI Gym does not include a built-in agent, so this will have to be built from scratch.
+OpenAI Gym is a toolkit for reinforcement learning research. It includes a growing collection of benchmark problems that expose a common interface (2016, \cite{gym}). OpenAI Gym focuses on the episodic setting of reinforcement learning, where the agent's experience is broken down into a series of episodes. In each episode the agent's initial state is randomly sampled from a distribution, and the interaction proceeds until the environment reaches a terminal state. OpenAI Gym does not include a built-in agent, so this will have to be built from scratch.
 
 \paragraph{}
 
-The agents used to solve this task will be deep neural networks. These will be built using TensorFlow, and end-to-end open source platform for machine learning. The agents will contain initially contain 3 Dense layers, this could be altered to a larger number of layers and parameters, however due to the time constraints and currently available compute power this model architecture will be used. The input to the agents will be the current state of the environment and the output will be an action to take. In doing this, the agents should be able to take actions that take them towards the goal state. The fitness of the agent will be calculated by taking up to 75 steps on the environment and measuring the received reward. The reward is 0.0 if the agent successfully completed the task, otherwise the reward is calculated by OpenAI Gym, but it is the distance from the current state and the goal state.
+The agents used to solve this task will be deep neural networks. These will be built using TensorFlow, and end-to-end open source platform for machine learning. The agents will follow a similar architecture to the ones used in the paper by Mnih et al (2015, \cite{mnih}). The agents DNN will contain 2 convolutional layers, a fully connected layer and a dropout layer in order to reduce overfitting on the environment which it was trained on. The exact parameters of each of the layers will be tuned during the implementation into to optimize the learning.
 
 \paragraph{}
 
-The selection, crossover and mutation processes will also have to be designed. For selection, tournament selection will be use, as well as elitism. Tournament selection is when a sample of the entire population is chosen to perform a tournament, i.e the fitness of the individual, and the best individual is returned. Elitism is where the top N individuals in terms of fitness will be automatically passed to the next generation. Different values of N will be experimented with to determine the most optimal value. For crossover, uniform crossover will be used. This can be performed in two ways:
-\begin{itemize}
-  \item Choose each individual weight from either parent for the child.
-  \item Choose each entire layer's weight from either parent for the child.
-\end{itemize}
-Due to the time constraints in this project, crossover will be performed with the entire layers weight but with more time more complex ways of crossover would be researched. Mutation is used to maintain and introduce diversity into the population. The idea would be to select a random weight, and perform a mutation operation to this weight. The weight could be replaced a random value (within certain constraints), the weight could be changed by some percentage or the sign of the weight could be changed. These 3 will be experimented with in order to find the most optimal process for mutated the weights.
+The selection, crossover and mutation processes will also have to be designed. For selection, tournament selection will be use, as well as elitism. Tournament selection is when a sample of the entire population is chosen to perform a tournament, i.e the fitness of the individual, and the best individual is returned. Half the population will be sampled and tournament selection performed on the sample in order to generate the parents for crossover. Elitism is where the top N individuals in terms of fitness will be automatically passed to the next generation. Different values of N will be experimented with to determine the most optimal value. For crossover, uniform crossover will be used. This can be performed in two ways, show in Table \ref{tab:cr-operations}:
+
+\begin{table}
+  \centering
+  \begin{tabular}{| m{8cm} | m{8cm}|}
+    \hline
+    \rowcolor{black!30} \Centering \textbf{Option} & \Centering \textbf{Algorithm} \\
+    \hline
+    Option 1 & For each weight in a layer, check if crossover should occur (chance $<$ crossover\_rate) and crossover \\
+    \hline
+    Option 2 & For each entire layer, check if crossover should occur (chance $<$ crossover\_rate) and crossover \\
+    \hline
+  \end{tabular}
+  \label{tab:cr-operations}
+  \caption{Possible Crossover Operators}
+\end{table}
+
+
+Problems could arise could arise by choosing option 2. This is because by swapping an entire layer, too much change has occurred and the model is likely to not perform well. Therefore, option 1 will be used as the crossover operator in this project, The crossover will be experimented with, however the range of experimentation will be [0.1,0.4]. Mutation is used to maintain and introduce diversity into the population. The mutation rate should be initially large, to increase the exploration across the search space before gradually decrease in order to maximise the exploitation on the found local minima. This local minima should hopefully be the global minima as the exploration rate was high at the start of the GA. To implement this, the mutation rate will follow this proportionality: $ mr \propto \frac{1}{\sqrt{g}}$, where g is the current generation number. The possible set of mutation operators to be experimented with can be seen in Table \ref{tab:mr-operations}. The mutation operator would be for each weight if the chance to mutate the weight is less than the mutation rate, then perform mutation.
+
+%\begin{table}
+  %\begin{tabular}{| m{8cm} | m{8cm} |}
+    %\hfill
+    %\rowcolor{black!30} \Centering \textbf{Option} & \Centering \textbf{Algorithm} \\
+    %\hfill
+    %Option 1 & Each weight is replaced with a random value (within certain constraints) \\
+    %\hfill
+    %Option 2 & Each weight is changed by a random percentage (performed by multiplying each weight by a random value between 0.5 and 1.5) \\
+    %\hfill
+    %Option 3 & Each weight has its sign flipped. \\
+  %\end{tabular}
+  %\caption{Possible Mutation Operators}
+  %\label{tab:mr-operations}
+%\end{table}
 
 \paragraph{}
 
-The population should converge on weights that solve the HandManipulateBlock tasks consistently. Then, these networks can be taken and tested on the other 3 tasks. In order to test the transfer learning, we would need to see how many steps it takes the networks to solve each task or if they reach a certain number of steps without solving the task at all. What also can be tested is if we continue evolving these pre-trained neural networks for a N generations (where N is a very small number), do they reach the goal in a fewer number of steps than untrained neural networks trained for N generations.
+The population should converge on weights that consistently score high scores in Space Invaders. Then, these networks can be taken and tested on the other two environments. In order to test the transfer learning, the resulting score from running the model on the new environment could be used. This score can be compared against just taking steps at random in the environment and hopefully model will score significantly higher. We can also be tested is, if the models do not run perfectly, could be we fine-tune the models to the new environment in a shorter time it takes to train from scratch. The time constraints on this project might result in a smaller improvement than expected, due to the time it takes to train a RL DNN model, but if positive results can be produced in a small time-frame then even better results could be produced with more time

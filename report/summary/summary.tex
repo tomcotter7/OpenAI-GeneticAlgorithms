@@ -1,3 +1,18 @@
 \chapter{Summary and Reflections}
 
 \label{ch:summary}
+
+\section{Summary of Work}
+
+Successes - review evaluation basically, produced a positive outcome in a limited time frame. work is well thought out etc...
+Limitations - nn to be transfer learnt require the same input shape, only works for discrete actions (not a continous action space), we could use ddpg or td3 for this.
+
+\section{Future Work}
+
+**POSTIVE**
+
+The project showed evidence that transfer learning is viable in reinforcement learning. This is positive for other RL tasks, such as the OpenAI ShadowHands environment. This is a robotics environment with a robot hand. There are multiple RL tasks for this such as manipulating a block into the correct position or moving the fingers of the hand into the correct position. These environments would be perfect for transfer learning, and at least reducing the training time for certain tasks for the hand would be very useful for real-world robotics problems. Neuroevolution whilst powerful does require a lot of compute power to train the models to convergence on even simpler tasks like an Atari game, so in order to train the models to produce consistent results on a RL task such as controlling a robots movement would require a longer training time and more GPUs to spread the workload over, something which with access to, would be interesting to experiment with.
+
+**NEGATIVE**
+
+This project did not show evidence of that transfer learning is significantly viable in RL tasks. This could be due to using neuroevolution specifically, and therefore further work would be testing this process again but using different algorithms such as DDPG or TD3 to train the initial model before testing the transfer learning capabilities.
