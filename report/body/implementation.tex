@@ -2,11 +2,11 @@
 
 \section{Agent}
 
-The agent was constructed with this structure......
+The agent was constructed in a similar manner to Mnih et al agents (2015, \cite{mnih}). However, the agents in this project had fewer parameters due to time constraints.
 
 \section{Genetic Algorithm}
 
-The genetic algorithm was performed by a Runner class, which could take an environment and the current generation as inputs to \_\_init\_\_.
+The genetic algorithm was performed by a Runner class, which could take an environment and the current generation as inputs to \_\_init\_\_. The runner class also applied the OpenAI function WarpFrame to the input environment. This means that all the observations on an environment within the runner class will have the shape (84,84,1). This means we can use the same deep neural network for each environment, allowing transfer learning to be utilised.
 
 The score for each agent per generation was not just it's reward from a single play-through of Space Invaders. Instead, per generation, each agent ``played'' Space Invaders N times. N varied throughout the testing process to speed up testing, however N was always in the range [5,20] and N will be specified whenever a figure is displaying a set of results. The score for each play-through was recorded, and then final score for the agent can be calculate using this equation: $0.4(median(r)) + 0.6(mean(r))$, where r is the set of scores for the agent. The median was used as the scores were often skewed by a large outlier which greatly affected the mean. This means the algorithm targets more consistent game playing. However, the mean is still useful to try to exploit certain large outliers if possible, or perhaps an agent produced good scores and bad scores at an even ratio, so the mean was used to continue evolving some of these agents. Just using the median often lead to slow improvements as the models would converge on the median score for the game, rather than trying to get a higher score.
 
@@ -39,14 +39,38 @@ Experiments were then performed to determine the optimal crossover and mutation 
     \includegraphics[scale=0.3]{images/04-cr-02-mr.png}
   \end{minipage}}
   \hfill
-  \caption{CR and MR Testing}
+  \caption{CR and MR Testing (x-axis - Current Generation, y-axis - Score)}
   \label{fig:crmr}
 \end{figure}
 
 \paragraph{}
 
 
-Using these determined rates both the mutation and crossover operators were tested. Initially, Option 2 for crossover was tested. This is where an entire layer was chosen to swap with both parents, if the chance was less than the crossover rate. The results of this coincided with my initial thoughts, and the models being using are likely too small for this option to be viable. Therefore, Option 1 was chosen, to randomly select an individual weight for crossover between two parents. For mutation, I tested the 3 different operators, the resulting output graphs can be see in Fig. N. For these results, the environment was experienced 5 times per agent per generation, and each experience was limited to 1 life. The total number of generations was limited to 5 due to time constraints. The final mutation operator was chosen to be .....
+Using these determined rates both the mutation and crossover operators were tested. Initially, Option 2 from Table \ref{tab:cr} for crossover was tested. This is where an entire layer was chosen to swap with both parents, if the chance was less than the crossover rate. The results of this coincided with my initial thoughts, and the models being using are likely too small for this option to be viable. Therefore, Option 1 from Table \ref{tab:cr} was chosen, to randomly select an individual weight for crossover between two parents. For mutation, I tested the 3 different operators from Table \ref{tab:mr}, the resulting output graphs can be see in Fig. \ref{fig:mot}. For these results, the environment was experienced 5 times per agent per generation, and each experience was limited to 1 life. The total number of generations was limited to 5 due to time constraints. The final mutation operator was chosen to be .....
+
+\begin{figure}
+  \centering
+  \subfloat[Option 1]{
+    \begin{minipage}[c]{0.3\textwidth}
+      \centering
+      %\includegraphics[scale=0.3]{}
+    \end{minipage}}
+  \hfill
+  \subfloat[Option 2]{
+    \begin{minipage}[c]{0.3\textwidth}
+      \centering
+      \includegraphics[scale=0.3]{images/mr-option2.png}
+    \end{minipage}}
+  \hfill
+  \subfloat[Option 3]{
+   \begin{minipage}[c]{0.3\textwidth}
+     \centering
+     %\includegraphics[scale=0.3]{}
+   \end{minipage}}
+  \hfill
+  \caption{Best Mutation Operator Testing - (x-axis - Current Generation, y-axis - Score)}
+  \label{fig:mot}
+\end{figure}
 
 
 \section{Transfer Learning}
