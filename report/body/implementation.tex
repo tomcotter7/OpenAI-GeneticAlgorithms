@@ -46,26 +46,26 @@ Experiments were then performed to determine the optimal crossover and mutation 
 \paragraph{}
 
 
-Using these determined rates both the mutation and crossover operators were tested. Initially, Option 2 from Table \ref{tab:cr} for crossover was tested. This is where an entire layer was chosen to swap with both parents, if the chance was less than the crossover rate. The results of this coincided with my initial thoughts, and the models being using are likely too small for this option to be viable. Therefore, Option 1 from Table \ref{tab:cr} was chosen, to randomly select an individual weight for crossover between two parents. For mutation, I tested the 3 different operators from Table \ref{tab:mr}, the resulting output graphs can be see in Fig. \ref{fig:mot}. For these results, the environment was experienced 5 times per agent per generation, and each experience was limited to 1 life. The total number of generations was limited to 5 due to time constraints. The final mutation operator was chosen to be .....
+Using these determined rates both the mutation and crossover operators were tested. Initially, Option 2 from Table \ref{tab:cr} for crossover was tested. This is where an entire layer was chosen to swap with both parents, if the chance was less than the crossover rate. The results of this coincided with my initial thoughts, and the models being using are likely too small for this option to be viable. Therefore, Option 1 from Table \ref{tab:cr} was chosen, to randomly select an individual weight for crossover between two parents. For mutation, I tested the 3 different operators from Table \ref{tab:mr}, the resulting output graphs can be see in Fig. \ref{fig:mot}. For these results, the environment was experienced 5 times per agent per generation, and each experience was limited to 1 life. The total number of generations was limited to 8 due to time constraints. The final mutation operator was chosen to be Option 2 (where each weight is changed by a random percentage), as this produced the most consistent results
 
-\begin{figure}
+\begin{figure}[ht]
   \centering
   \subfloat[Option 1]{
     \begin{minipage}[c]{0.3\textwidth}
       \centering
-      %\includegraphics[scale=0.3]{}
+      \includegraphics[scale=0.25]{images/mr-option1.png}
     \end{minipage}}
   \hfill
   \subfloat[Option 2]{
     \begin{minipage}[c]{0.3\textwidth}
       \centering
-      \includegraphics[scale=0.3]{images/mr-option2.png}
+      \includegraphics[scale=0.25]{images/mr-option2.png}
     \end{minipage}}
   \hfill
   \subfloat[Option 3]{
    \begin{minipage}[c]{0.3\textwidth}
      \centering
-     \includegraphics[scale=0.3]{images/mr-option3.png}
+     \includegraphics[scale=0.25]{images/mr-option3.png}
    \end{minipage}}
   \hfill
   \caption{Best Mutation Operator Testing - (x-axis - Current Generation, y-axis - Score)}
@@ -75,4 +75,4 @@ Using these determined rates both the mutation and crossover operators were test
 
 \section{Transfer Learning}
 
-The transfer learning was implemented by initiating another runner class with a new environment and the resulting final generation of Space Invaders runner. The best model can then be selected and test on one experience of the new environment. This can be compared to 1 experience of an agent performing random actions on the same environment. The entire set of models can also be run through the genetic algorithm again to see how it long it takes for them to converge.
+The transfer learning was implemented by initiating another runner class with a new environment and the resulting final generation of Space Invaders runner. The best model can then be selected and test on N experiences of the new environment. This can be compared to N experiences of an agent performing random actions on the same environment. N will be specified where the results are displayed. 

@@ -4,11 +4,11 @@
 
 \section{Training on Space Invaders}
 
-Using the determined operators and rates, the final set of models were trained. In this case, the environment was experienced 20 times per agent per generation, and the lives were no longer limited to 1 - the agent would play until the game was finished. This was tested for 30 generations, and the population contained 20 agents. The result can be seen in Fig. N. The final mean score for the agents was x.
+Using the determined operators and rates, the final set of models were trained. In this case, the environment was experienced 14 times per agent per generation, but the number of lives were still limited to 1. This reduced the training time, without too much of a deficit to the quality of the training.  This was tested for 25 generations, and the population contained 20 agents. The result can be seen in Fig. N. The final mean score for the agents was x.
 
 \section{Transfer Learning}
 
-The comparison between an agent performing random actions and the best agent taken from the final generation from the Space Invaders training for both new environments can be seen in Fig. N. From these results we can say that -
+The comparison between an agent performing random actions and the best agent taken from the final generation from the Space Invaders training for both new environments can be seen in Table. N. From these results we can say that -
 
 **POSITIVE**
 
@@ -16,7 +16,7 @@ Transfer learning provides a significant improvement for basic RL learning tasks
 
 **NEGATIVE**
 
-Utilising transfer learning for RL does not produce a significant improvement over using a random agent. In both Demon Attack and Carnival, the transfer learned agents did not perform significantly better than a random agent to say that transfer learning is useful. In this case, we can also test evolving the set of trained agents on a new environment for 10 generations and comparing this to starting with random agents. These results can be seen in Fig. M. From these results, we can say that - 
+Utilising transfer learning for RL does not produce a significant improvement over using a random agent. In both Demon Attack and Carnival, the transfer learned agents did not perform significantly better than a random agent to say that transfer learning is useful. The reasons for this could be that the games are just too different for the DNN to utilise it's previous knowledge from learning to play Space Invaders.
 
 
 

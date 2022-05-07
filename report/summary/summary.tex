@@ -5,7 +5,9 @@
 \section{Summary of Work}
 
 Successes - review evaluation basically, produced a positive outcome in a limited time frame. work is well thought out etc...
-Limitations - nn to be transfer learnt require the same input shape, only works for discrete actions (not a continous action space), we could use ddpg or td3 for this.
+
+
+In order to utilise transfer learning for a deep neural network, the new input shape must be the same as the input shape used to train the DNN. This means we cannot utilise this project for many other types of games not on the Atari console. Furthermore, deep neural network like the one utilised in this project can only produce outputs that correspond to discrete actions. This means any environment with a continuous action space will not work with this type of neuro-evolution. However, we can use other frameworks for this, such as DDPG or TD3 and test their transfer learning capabilities for continous action spaces.
 
 \section{Future Work}
 
