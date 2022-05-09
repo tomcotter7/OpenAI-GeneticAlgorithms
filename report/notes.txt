@@ -12,3 +12,13 @@ Therefore, in theory the model should perform significantly better than random a
 
 Neuroevolution, or neuro-evolution, is a form of artificial intelligence that uses evolutionary algorithms to generate artificial neural networks (ANN), parameters, topology and rules.[1] It is most commonly applied in artificial life, general game playing[2] and evolutionary robotics. The main benefit is that neuroevolution can be applied more widely than supervised learning algorithms, which require a syllabus of correct input-output pairs. In contrast, neuroevolution requires only a measure of a network’s performance at a task.
 
+
+DemonAttack
+Random Results: Mean: 181.78571428571428, Median: 175.0, Best: 385.0
+Model Results: Mean: 83.21428571428571, Median: 70.0, Best: 235.0
+Carnival
+Random Results: Mean: 717.1428571428571, Median: 690.0, Best: 1120.0
+Model Results: Mean: 410.0, Median: 410.0, Best: 620.0
+
+Space Invaders Random Results: Mean: 153.0, Median: 155.0, Best: 205.0
+Model Results: Mean: 552.0, Median: 625.0, Best: 670.0

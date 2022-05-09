@@ -44,6 +44,7 @@ class Runner:
             action = nn.predict(np.array([obs]))
             action = np.argmax(action, axis=1)
             obs, reward, done, info = env.step(action[0])
+            print(info)
             if info['episode_frame_number'] >= 15000:
                 break
             if not self.nolimit and info['lives'] < 3:

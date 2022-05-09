@@ -9,6 +9,9 @@ class Agent:
         self.nn = self.build_model()
         self.name = name
 
+    def update_name(self, new_name):
+      self.name = new_name
+
     def build_model(self):
 
         model = tf.keras.Sequential()
