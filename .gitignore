@@ -10,3 +10,6 @@ report/_minted-thesis
 **/*.lof
 **/*.lot
 **/*.toc
+**/*.zip
+/20160230_supplementary/
+**/*.mp4
