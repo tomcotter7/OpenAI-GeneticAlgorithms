@@ -22,3 +22,16 @@ Model Results: Mean: 410.0, Median: 410.0, Best: 620.0
 
 Space Invaders Random Results: Mean: 153.0, Median: 155.0, Best: 205.0
 Model Results: Mean: 552.0, Median: 625.0, Best: 670.0
+
+
+
+NEW Results
+
+Space Invaders
+Random Results: Mean: 308.0, Median: 340.0, Best: 525.0
+Model Results: Mean: 515.5, Median: 467.5, Best: 810.0
+
+Demon DemonAttack
+
+Random Results: Mean: 691.5, Median: 420.0, Best: 1460.0
+Model Results: Mean: 284.5, Median: 150.0, Best: 1220.0

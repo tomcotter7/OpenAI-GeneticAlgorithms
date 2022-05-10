@@ -4,12 +4,12 @@
 
 \section{Training on Space Invaders}
 
-Using the determined mutation and crossover operators/rates, the final set of models were trained. In this case, each agent had 14 episodes on the environment per generation, but the number of lives were still limited to 1. This reduced the training time, without too much of a deficit to the quality of the training.  This was tested for 25 generations, and the population contained 20 agents. The training curve can be seen in Fig. \ref{fig:final}, and how well the model performed compared to an agent which performed random action at each step for the Space Invaders game can be seen in Table \ref{ref:sptab}. To obtain these results both the best agent and the random agent had 14 episodes with the environment. We can see from this table that neuro-evolution with these parameters resulted in a 400\% increase in the score of the agent on Space Invaders, something which could increase with further training and a larger number of parameters in the model.
+Using the determined mutation and crossover operators, with the initial mr = 0.3, and cr = 0.35, the final set of models were trained. The CR is slightly decreased from the implementation chapter as this produces slightly better results. In this case, each agent had 14 episodes on the environment per generation, but the number of lives were still limited to 1. This reduced the training time, without too much of a deficit to the quality of the training.  This was tested for 25 generations, and the population contained 20 agents. The training curve can be seen in Fig. \ref{fig:final}, and how well the model performed compared to an agent which performed random action at each step for the Space Invaders game can be seen in Table \ref{ref:sptab}. To obtain these results both the best agent and the random agent had 14 episodes with the environment. We can see from this table that neuro-evolution with these parameters resulted in a 400\% increase in the score of the agent on Space Invaders, something which could increase with further training and a larger number of parameters in the model.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[scale=0.4]{images/final-run.png}
-  \caption{Final Neuro-Evolution Training Graph}
+  \caption{Final Neuro-Evolution Training Graph (x-axis - current generation. y-axis - score)}
   \label{fig:final}
 \end{figure}
 
