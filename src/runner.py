@@ -128,7 +128,7 @@ class Runner:
         new_gen = []
 
         mr = 0.3 / math.sqrt(g + 1)
-        cr = 0.4
+        cr = 0.35
 
         print("Current MR: {} and Current CR: {}".format(mr, cr))
 
@@ -178,11 +178,8 @@ class Runner:
 
         return self.gen, gen_reward, best_scores, mean_scores, median_scores
 
-    def run_multiple_times(self, model=None, random=False):
-        if random:
-            return [self.run_random_algorithm(self.env) for i in range(self.experience)]
-        else:
-            return [self.run_env(self.env, model) for i in range(self.experience)]
+    def run_multiple_times(self, model):
+        return [self.run_env(self.env, model) for i in range(self.experience)]
 
     def run_random_algorithm(self, env):
         obs = env.reset()
